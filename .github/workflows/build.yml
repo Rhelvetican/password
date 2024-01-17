@@ -62,5 +62,5 @@ jobs:
             - name: Upload Artifacts
               uses: actions/upload-artifact@v2
               with:
-                name: geode-cli-${{ matrix.config.id }}
+                name: password-${{ matrix.config.id }}
                 path: ./out/
