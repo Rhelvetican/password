@@ -17,3 +17,11 @@ ansi_term = "*"
 
 [build-dependencies]
 winres = "*"
+
+[profile.release]
+lto = "thin"
+opt-level = 3
+codegen-units = 1
+strip = "symbols"
+debug-assertions = false
+rpath = true
