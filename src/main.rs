@@ -1,4 +1,4 @@
-use clap::Parser;
+use clap::{Parser, Command, Arg};
 
 const NUMBER: &str = "Number";
 const T_F: &str = "True/False";
