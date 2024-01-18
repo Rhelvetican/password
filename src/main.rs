@@ -12,11 +12,11 @@ use rand::Rng;
 struct Cli {
 	#[clap(long, short, action, default_value = "8")]
 	length: u8,
-	#[clap(long, short, action, default_value = "f")]
+	#[clap(long, short, action)]
 	number_enabled: bool,
-	#[clap(long, short, action, default_value = "f")]
+	#[clap(long, short, action)]
 	capital_enabled: bool,
-	#[clap(long, short, action, default_value = "f")]
+	#[clap(long, short, action)]
 	special_enabled: bool,
 }
 
