@@ -6,7 +6,7 @@ use rand::Rng;
 	name = "pwgen",
 	version = "1.1.0",
 	author = "Rhelvetican",
-	long_about,
+	long_about = env!("CARGO_PKG_DESCRIPTION"),
 	about = "A simple password generator."
 )]
 struct Cli {
