@@ -1,4 +1,5 @@
-use clap::{Parser, Command, Arg};
+use clap::Parser;
+use rand::seq::SliceRandom;
 
 const NUMBER: &str = "Number";
 const T_F: &str = "True/False";
@@ -36,6 +37,8 @@ fn main() {
 	if special_enabled {
 		char_pool.extend("!@#$%^&*()".chars());
 	}
+
+	char_pool.shuffle(&mut rand::thread_rng());
 
 	let mut password: String = String::new();
 
