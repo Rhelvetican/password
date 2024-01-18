@@ -1,50 +1,56 @@
 use clap::Parser;
-use rand::seq::SliceRandom;
-
-const NUMBER: &str = "Number";
-const T_F: &str = "True/False";
+use rand::Rng;
 
 #[derive(Parser, Debug)]
-#[clap(author, version, about, long_about = None)]
-struct Args {
-	#[clap(short, long, default_value_t = 8, value_name = NUMBER, display_order = 1)]
+#[clap(
+	name = "pwgen",
+	version = "1.1.0",
+	author = "Rhelvetican",
+	long_about,
+	about = "A simple password generator."
+)]
+struct Cli {
+	#[clap(long, short, action, default_value = "8")]
 	length: u8,
-	#[clap(short, long, value_parser, default_value_t = true, value_name = T_F, display_order = 2)]
+	#[clap(long, short, action, default_value = "f")]
 	number_enabled: bool,
-	#[clap(short, long, value_parser, default_value_t = false, value_name = T_F, display_order = 3)]
+	#[clap(long, short, action, default_value = "f")]
 	capital_enabled: bool,
-	#[clap(short, long, value_parser, default_value_t = false, value_name = T_F, display_order = 4)]
+	#[clap(long, short, action, default_value = "f")]
 	special_enabled: bool,
 }
 
 fn main() {
-	let args = Args::parse();
+	let args = Cli::parse();
 
-	let length: u8 = args.length;
-	let number_enabled: bool = args.number_enabled;
-	let capital_enabled: bool = args.capital_enabled;
-	let special_enabled: bool = args.special_enabled;
+	let l = args.length;
+	let n = args.number_enabled;
+	let c = args.capital_enabled;
+	let s = args.special_enabled;
 
-	let mut char_pool: Vec<char> = Vec::new();
+	let mut pool: Vec<char> = Vec::new();
 
-	char_pool.extend('a'..='z');
-	if capital_enabled {
-		char_pool.extend('A'..='Z');
-	}
-	if number_enabled {
-		char_pool.extend('0'..='9');
-	}
-	if special_enabled {
-		char_pool.extend("!@#$%^&*()".chars());
+	pool.extend('a'..='z');
+
+	if n {
+		pool.extend('0'..='9');
 	}
 
-	char_pool.shuffle(&mut rand::thread_rng());
+	if c {
+		pool.extend('A'..='Z');
+	}
 
-	let mut password: String = String::new();
+	if s {
+		pool.extend("!@#$%^&*()".chars());
+	}
 
-	for _ in 0..length {
-		let random_index: usize = rand::random::<usize>() % char_pool.len();
-		password.push(char_pool[random_index]);
+	let mut rng = rand::thread_rng();
+
+	let mut password = String::new();
+
+	for _ in 0..=l {
+		let i = rng.gen_range(0..pool.len());
+		password.push(pool[i]);
 	}
 
 	println!("{}", password);
