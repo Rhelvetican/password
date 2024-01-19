@@ -23,10 +23,10 @@ struct Cli {
 fn main() {
 	let args = Cli::parse();
 
-	let l = args.length;
-	let n = args.number_enabled;
-	let c = args.capital_enabled;
-	let s = args.special_enabled;
+	let l: u8 = args.length;
+	let n: bool = args.number_enabled;
+	let c: bool = args.capital_enabled;
+	let s: bool = args.special_enabled;
 
 	let mut pool: Vec<char> = Vec::new();
 
